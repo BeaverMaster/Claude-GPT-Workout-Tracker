@@ -25,6 +25,12 @@
 </head>
 <body class="bg-zinc-900 text-zinc-100 min-h-screen">
 
+    <div id="splash"
+     class="fixed inset-0 z-[9999] flex items-center justify-center
+            bg-[#2563eb] transition-opacity duration-500">
+  <canvas id="splashIcon" width="300" height="300"></canvas>
+    </div>
+
 <!-- App Container - iOS Safe Area beachten -->
 <div id="app" class="max-w-md mx-auto pb-24 pt-4 px-4">
 
@@ -132,6 +138,62 @@
 </div>
 
 <script>
+
+    function drawWorkoutIcon(ctx, x, y, size) {
+  const unit = size / 180;
+
+  const gradient = ctx.createLinearGradient(x, y, x + size, y + size);
+  gradient.addColorStop(0, '#2563eb');
+  gradient.addColorStop(1, '#1d4ed8');
+
+  function roundRect(px, py, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(px + r, py);
+    ctx.lineTo(px + w - r, py);
+    ctx.quadraticCurveTo(px + w, py, px + w, py + r);
+    ctx.lineTo(px + w, py + h - r);
+    ctx.quadraticCurveTo(px + w, py + h, px + w - r, py + h);
+    ctx.lineTo(px + r, py + h);
+    ctx.quadraticCurveTo(px, py + h, px, py + h - r);
+    ctx.lineTo(px, py + r);
+    ctx.quadraticCurveTo(px, py, px + r, py);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ctx.fillStyle = gradient;
+  roundRect(x, y, size, size, size * 0.22);
+
+  ctx.fillStyle = 'white';
+  roundRect(x + 50 * unit, y + 60 * unit, 15 * unit, 60 * unit, 7.5 * unit);
+  roundRect(x + 115 * unit, y + 60 * unit, 15 * unit, 60 * unit, 7.5 * unit);
+  roundRect(x + 65 * unit, y + 82.5 * unit, 50 * unit, 15 * unit, 7.5 * unit);
+
+  ctx.fillStyle = '#10b981';
+  [[72.5,75],[72.5,105],[107.5,75],[107.5,105]].forEach(([dx,dy])=>{
+    ctx.beginPath();
+    ctx.arc(x + dx * unit, y + dy * unit, 8 * unit, 0, Math.PI * 2);
+    ctx.fill();
+  });
+}
+
+    window.addEventListener('DOMContentLoaded', () => {
+  const canvas = document.getElementById('splashIcon');
+  const ctx = canvas.getContext('2d');
+
+  drawWorkoutIcon(ctx, 0, 0, canvas.width);
+});
+
+window.addEventListener('load', () => {
+  const splash = document.getElementById('splash');
+
+  splash.classList.add('opacity-0');
+
+  setTimeout(() => {
+    splash.remove();
+  }, 500);
+});
+    
     // ============================================================
     // APP ICON GENERIERUNG
     // ============================================================
@@ -820,6 +882,7 @@
 </body>
 
 </html>
+
 
 
 
