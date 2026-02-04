@@ -10,6 +10,10 @@
     <meta name="apple-mobile-web-app-title" content="Workout">
     <meta name="theme-color" content="#09090b">
 
+    <link rel="apple-touch-startup-image"
+          media="(device-width: 360px) and (device-height: 780px) and (-webkit-device-pixel-ratio: 3)"
+          href="iphone12mini-startup.png">
+
     <!-- App Icon für Home Screen - 180x180px PNG als Data URL -->
     <link rel="apple-touch-icon" id="appIcon">
 
@@ -20,16 +24,6 @@
 </head>
 <body class="bg-zinc-900 text-zinc-100 min-h-screen">
 
-<div id="splash"
-     class="fixed inset-0 z-[9999] flex items-center justify-center
-            bg-[#2563eb] transition-opacity duration-500">
-
-    <img
-            src="iphone12mini-startup.png"
-            alt="Splash"
-            class="w-full h-full object-contain"
-    />
-</div>
 <!-- App Container - iOS Safe Area beachten -->
 <div id="app" class="max-w-md mx-auto pb-24 pt-4 px-4">
 
@@ -137,33 +131,6 @@
 </div>
 
 <script>
-
-// ============================================================
-// APP STARTUP SCREEN
-// ============================================================
-
-
-const SPLASH_MIN_TIME = 1500;
-const splashStart = performance.now();
-
-window.addEventListener('load', () => {
-  const splash = document.getElementById('splash');
-
-  const elapsed = performance.now() - splashStart;
-  const remaining = Math.max(0, SPLASH_MIN_TIME - elapsed);
-
-  setTimeout(() => {
-    // 🔒 HIER ist der richtige Moment
-    splash.style.pointerEvents = 'none';
-
-    splash.classList.add('opacity-0');
-
-    setTimeout(() => {
-      splash.remove();
-    }, 500);
-  }, remaining);
-});
-
     // ============================================================
     // APP ICON GENERIERUNG
     // ============================================================
@@ -852,5 +819,3 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-
-
