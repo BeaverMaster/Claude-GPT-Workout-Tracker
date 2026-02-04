@@ -138,24 +138,31 @@
 
 <script>
 
-    const SPLASH_MIN_TIME = 1500; // ms
-    const splashStart = performance.now();
+// ============================================================
+// APP STARTUP SCREEN
+// ============================================================
 
-    window.addEventListener('load', () => {
-        const splash = document.getElementById('splash');
 
-        const elapsed = performance.now() - splashStart;
-        const remaining = Math.max(0, SPLASH_MIN_TIME - elapsed);
+const SPLASH_MIN_TIME = 1500;
+const splashStart = performance.now();
 
-        setTimeout(() => {
-            splash.classList.add('opacity-0');
+window.addEventListener('load', () => {
+  const splash = document.getElementById('splash');
 
-            setTimeout(() => {
-                splash.remove();
-            }, 500);
-        }, remaining);
-    });
+  const elapsed = performance.now() - splashStart;
+  const remaining = Math.max(0, SPLASH_MIN_TIME - elapsed);
 
+  setTimeout(() => {
+    // 🔒 HIER ist der richtige Moment
+    splash.style.pointerEvents = 'none';
+
+    splash.classList.add('opacity-0');
+
+    setTimeout(() => {
+      splash.remove();
+    }, 500);
+  }, remaining);
+});
 
     // ============================================================
     // APP ICON GENERIERUNG
@@ -845,4 +852,5 @@
 </script>
 </body>
 </html>
+
 
